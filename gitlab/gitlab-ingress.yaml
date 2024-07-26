@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gitlab-ingress
+  namespace: gitlab
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: gitlab.local  # 로컬 도메인 설정
+      # 실제 도메인 설정을 사용하려면 위의 도메인을 주석 처리하고 아래 도메인을 사용
+      # host: gitlab.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gitlab-webservice-default
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - gitlab.local  # 로컬 도메인 설정
+      # 실제 도메인 설정을 사용하려면 위의 도메인을 주석 처리하고 아래 도메인을 사용
+      # - gitlab.example.com
+      secretName: gitlab-tls
