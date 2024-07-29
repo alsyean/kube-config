@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   name: argocd-ingress
   namespace: argocd
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+#    cert-manager.io/issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
   rules:
@@ -18,9 +21,9 @@ spec:
                 name: argocd-server
                 port:
                   number: 80
-  tls:
-    - hosts:
-        - argocd.local  # 로컬 도메인 설정
+#  tls:
+#    - hosts:
+#      - argocd.local  # 로컬 도메인 설정
       # 실제 도메인 설정을 사용하려면 위의 도메인을 주석 처리하고 아래 도메인을 사용
       # - argocd.example.com
-      secretName: argocd-tls
+#      secretName: argocd-tls

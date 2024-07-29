@@ -1,3 +1,11 @@
 server:
-  service:
-    type: LoadBalancer
+  ingress:
+    enabled: true
+    hosts:
+      - host: argocd.local  # 로컬 도메인 설정
+    tls:
+      - hosts:
+          - argocd.local  # 로컬 도메인 설정
+        secretName: argocd-tls
+  config:
+    url: https://argocd.local
